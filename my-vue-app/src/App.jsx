@@ -7,17 +7,20 @@ import { my } from './my'
 function App() {
   const [inputtedValue, newInputtedValue] = useState("")
   const [myItemsList, newItemsList] = useState([])
-  const [edit, changebeingedit] = useState(false)
-  const[ editdivs , changeeditdivs] = useState(false)
+  const [currentedititem , setcurrentedititem] = useState(null)
   function AddButtonClicked() {
     newItemsList([...myItemsList, { id: myItemsList.length + 1, name: inputtedValue }])
     newInputtedValue("")
   }
   function editThevaluebuttonclicked(item) {
     newInputtedValue(myItemsList[item.id - 1].name)
+    setcurrentedititem(item)
   }
   function editButtonClicked() {
-    
+    myItemsList[currentedititem.id - 1].name = inputtedValue
+    newItemsList(myItemsList)
+    setcurrentedititem (null)
+    newInputtedValue("")
   }
   return (
     <div>
@@ -25,8 +28,12 @@ function App() {
         newInputtedValue(e.target.value)
       }} type="text" />
       <div>
-        {edit ? <button onClick={editButtonClicked}>Edit</button> :<button onClick={AddButtonClicked}>Add</button> }
-      
+        {(()=>{
+          if(currentedititem === null){return (<button onClick={AddButtonClicked}>Add</button>)  }
+          else  {return (<button onClick={editButtonClicked}>Edit</button>)}
+
+        })()
+        }
       </div>
       {myItemsList.map((item) => {
         return <div key={item.id }>
@@ -40,9 +47,7 @@ function App() {
             newItemsList(spareList)
           }}>X</button>
           <button key={item.id} onClick={(() => {
-            changeeditdivs(true)
             editThevaluebuttonclicked(item)
-            changebeingedit(true)
           })}>Edit</button>
         </div>
       })}
