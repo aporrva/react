@@ -1,5 +1,5 @@
 {
-  "name": "mypackage",
+  "name": "react-hook-forms",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -10,10 +10,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@tailwindcss/vite": "^4.0.17",
+    "@tailwindcss/vite": "^4.1.3",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "tailwindcss": "^4.0.17"
+    "react-hook-form": "^7.55.0",
+    "tailwindcss": "^4.1.3"
   },
   "devDependencies": {
     "@eslint/js": "^9.21.0",

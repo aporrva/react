@@ -1,30 +1,28 @@
-import { useState } from 'react';
-import reactLogo from './assets/react.svg';
-import viteLogo from '/vite.svg';
-// import './App.css'
-import Header from './Header';
-import Footer from './Footer';
-
+import './App.css'
+import React, { useEffect, useState } from 'react';
+import Header from './COMPONENTS/Header';
+import Footer from './COMPONENTS/Footer'
+import usercomponent from './usercomponent';
 function App() {
-
-  const [usernam, newname] = useState("")
-  function apoorva(e) {
-    newname(e.target.value)
-  }
+  const[data,setdata] = useState({})
+  useEffect(()=>{
+    fetch('https://dummyjson.com/products')
+  .then(res => res.json())
+  .then(json => setdata(json.products[0]))
+  },[])
+  console.log(data)
   return (
-    <div className="">
-      <Header name={usernam}/>
-      <main className="p-8">
-        <input
-          className="px-2 py-1 text-xl border border-gray-800 rounded-lg"
-          type="text"
-          placeholder="Enter your name"
-          onInput={apoorva}
-          />
-      </main>
-      <Footer name={usernam} />
+    <div>
+      <usercomponent.Provider value = {{data,setdata}} >
+        <Header>
+          <p>hlo here is apoorva dear</p>
+          <p>nice to meet you all</p>
+        </Header>
+        <Footer/>
+      </usercomponent.Provider>
+
     </div>
-  );
+  )
 }
 
 export default App;
